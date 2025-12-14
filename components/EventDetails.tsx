@@ -5,6 +5,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getSimilarEventsBySlug } from "@/lib/actions/event.action";
 import { cacheLife } from "next/cache";
+import {events} from '@/lib/constants';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -35,6 +36,7 @@ const EventTags = ({ tags }: { tags: string[]}) => (
   </div>
 )
 
+
 const EventDetails = async ({ params }: {params: Promise<string>}) => {
   'use cache'
   cacheLife('hours');
@@ -42,6 +44,9 @@ const EventDetails = async ({ params }: {params: Promise<string>}) => {
   const slug = await params;
   const request = await fetch(`${BASE_URL}/api/events/${slug}`);
   const { event: {title, _id, description, image, overview, date, time, location, agenda, organizer, tags, audience, mode} } = await request.json();
+
+  const even = events.find(e => e.slug === slug);
+  console.log("LOcal Event: ", even);
 
   if(!description) return notFound();
 

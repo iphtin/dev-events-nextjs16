@@ -2,16 +2,16 @@ import EventCard from "@/components/EventCard"
 import ExploreBtn from "@/components/ExploreBtn"
 import { EventDocument } from "@/database";
 import { cacheLife } from "next/cache";
-import {events} from '@/lib/constants';
+import { events } from '@/lib/constants';
 
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 
-const Home = async () => {
-  'use cache';
+const Home = () => {
+  // 'use cache';
   
-  cacheLife('hours')
+  // cacheLife('hours')
 
   // let events = [];
   // try {
