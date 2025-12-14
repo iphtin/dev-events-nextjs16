@@ -8,6 +8,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const Home = async () => {
   'use cache';
+  
   cacheLife('hours')
   let events = [];
   try {
