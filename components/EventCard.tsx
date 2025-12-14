@@ -26,7 +26,7 @@ const EventCard = ({title, image, slug, location, date, time}: Props) => {
       <div className="datetime">
         <div>
           <Image src="/icons/calendar.svg" alt="date" width={14} height={14} />
-          <p>{date}</p>
+          <p>{new Date(date).toLocaleDateString()}</p>
         </div>
         <div>
           <Image src="/icons/clock.svg" alt="time" width={14} height={14} />
