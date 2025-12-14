@@ -5,36 +5,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { getSimilarEventsBySlug } from "@/lib/actions/event.action";
 import { cacheLife } from "next/cache";
-import {events} from '@/lib/constants';
 
-const event = {
-  _id: "693b214dc14ccb5fbf64b22b",
-  title: "Cloud Next 2027",
-  description: "Google’s premier cloud computing event, showcasing innovations in AI, infrastructure, and enterprise solutions.",
-  overview: "Cloud Next 2025 highlights the latest in cloud-native development, Kubernetes, AI, and enterprise scalability. Developers, architects, and executives gather to learn about new Google Cloud services, best practices, and success stories.",
-  image: "https://res.cloudinary.com/darzppmps/image/upload/v1765482828/DevEvent/ii4dlwxzdjllab3f3qhf.webp",
-  venue: "Moscone Center",
-  location: "San Francisco, CA",
-  date: "2025-04-10T00:00:00.000Z",
-  time: "08:30",
-  mode: "hybrid",
-  audience: "Cloud engineers, DevOps, enterprise leaders, AI researchers",
-  agenda: [
-    "[\n    \"08:30 AM - 09:30 AM | Keynote: AI-Driven Cloud Infrastructure\",\n    \"09:45 AM - 11:00 AM | Deep Dives: Kubernetes, Data Analytics, Security\",\n    \"11:15 AM - 12:30 PM | Product Demos & Networking\",\n    \"12:30 PM - 01:30 PM | Lunch\",\n    \"01:30 PM - 03:00 PM | Workshops: Scaling with GCP\",\n    \"03:15 PM - 04:30 PM | Fireside Chat: The Future of Enterprise Cloud\"\n  ]"
-  ],
-  organizer: "Google Cloud organizes Cloud Next to connect global businesses, developers, and innovators with the latest technologies and best practices in cloud computing.",
-  tags: [
-    " [\"Cloud\", \"DevOps\", \"Kubernetes\", \"AI\"]"
-  ],
-  createdAt: {
-    "$date": "2025-12-11T19:53:49.721Z"
-  },
-  updatedAt: {
-    "$date": "2025-12-11T19:53:49.721Z"
-  },
-  slug: "cloud-next-2027",
-  "__v": 0
-}
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 const EventDetailItem = ({ icon, alt, label }: {icon: string, alt: string, label: string}) => (
    <div className="flex flex-row gap-2 items-center">
@@ -63,13 +35,13 @@ const EventTags = ({ tags }: { tags: string[]}) => (
   </div>
 )
 
-
 const EventDetails = async ({ params }: {params: Promise<string>}) => {
+  'use cache'
+  cacheLife('hours');
 
-  const slug = await params;
-
-  let {title, _id, description, image, overview, date, time, location, agenda, organizer, tags, audience, mode} = event;
-
+  const slug  = await params;
+  const request = await fetch(`${BASE_URL}/api/events/${slug}`);
+  const { event: {title, _id, description, image, overview, date, time, location, agenda, organizer, tags, audience, mode} } = await request.json();
 
   if(!description) return notFound();
 
