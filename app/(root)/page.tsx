@@ -1,29 +1,8 @@
 import EventCard from "@/components/EventCard"
 import ExploreBtn from "@/components/ExploreBtn"
-import { EventDocument } from "@/database";
-import { cacheLife } from "next/cache";
 import { events } from '@/lib/constants';
 
-
-// const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
-
-
-const Home = () => {
-  // 'use cache';
-  
-  // cacheLife('hours')
-
-  // let events = [];
-  // try {
-  //   const response = await fetch(`${BASE_URL}/api/events`);
-  //   if (!response.ok) {
-  //     throw new Error('Network response was not ok');
-  //   }
-  //   const data = await response.json();
-  //   events = data.events || [];
-  // } catch (error) {
-  //   console.error('Failed to fetch events:', error);
-  // }
+const Home = async () => {
 
   return (
     <section>
